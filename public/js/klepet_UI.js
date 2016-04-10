@@ -1,6 +1,5 @@
 function divElementEnostavniTekst(sporocilo) {
   sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
-  sporocilo = addSlike(sporocilo);
   return $('<div style="font-weight: bold"></div>').html(sporocilo);
 }
 
@@ -128,17 +127,9 @@ function dodajSmeske(vhodnoBesedilo) {
   return vhodnoBesedilo;
 }
 
-//Slike
-function addSlike(sporocilo) {
-  var regex =/(https?:\/\/[\S]+\.(?:png|jpg|gif))(?!\s*(?:"|')?\s*?\/?>)/gi;
-  var found = sporocilo.match(regex);
-  try{
-    for (var i=0; i<found.length; i++)
-    {
-      sporocilo = sporocilo + '<img src="' + found[i] + '" width="200" style="padding-left: 20px;" />';
-    }
-  }catch(err){
-    
-  }
-  return sporocilo;
-}
+//dregljaj
+  socket.on('dregljaj', function(vzdevek) {
+      $('#vsebina').jrumble();
+      $('#vsebina').trigger('startRumble');
+      var cas = setTimeout(function(){$('#vsebina').trigger('stopRumble');}, 1500);
+  });
