@@ -1,6 +1,7 @@
 function divElementEnostavniTekst(sporocilo) {
   sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
   sporocilo = addSlike(sporocilo);
+  sporocilo = addVideo(sporocilo);
   return $('<div style="font-weight: bold"></div>').html(sporocilo);
 }
 
@@ -149,4 +150,26 @@ function addSlike(sporocilo) {
     
   }
   return sporocilo;
+}
+//Youtube
+
+var jeVideo = 0;
+function addVideo(input) {
+  jeVideo = 0;
+  var el="";
+  var tmp ="";
+  var input2 = input.split(" "); //Split in link and other texts
+  var youUrl = "https://www.youtube.com/watch?v="
+  for (var i in input2) { 
+    try{
+      tmp = input2[i].substring(0,youUrl.length); // search substring
+    }catch(err){} 
+      if (tmp == youUrl) //is youtube link
+      {
+        var tmp2 = input2[i].substring(youUrl.length,input[i].length); //get whole string back
+        el += '<br /><iframe class="video" src="https://www.youtube.com/embed/'+tmp2+'" allowfullscreen></iframe>'; //insert link
+        jeVideo = 1;
+      }
+  }
+  return input+el;
 }
