@@ -94,12 +94,20 @@ $(document).ready(function() {
     });
   });
 
-  socket.on('uporabniki', function(uporabniki) {
-    $('#seznam-uporabnikov').empty();
-    for (var i=0; i < uporabniki.length; i++) {
-      $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i]));
+   socket.on('uporabniki', function(user) {
+    $('#seznam-uporabnikov').empty(); 
+    for (var i=0; i < user.length; i++) {
+      $('#seznam-uporabnikov').append(divElementEnostavniTekst(user[i])); //Ponovno vnesi uporabnike
     }
+    
+     $('#seznam-uporabnikov div').click(function() {
+       var vzdevek = $(this).text(); //Pridobi vzdevek
+       $('#poslji-sporocilo').val('/zasebno "' + vzdevek + '"'); //pošlji
+      $('#poslji-sporocilo').focus();
+    });
   });
+  
+
 
   setInterval(function() {
     socket.emit('kanali');
