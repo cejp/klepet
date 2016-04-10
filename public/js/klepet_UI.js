@@ -2,6 +2,7 @@ function divElementEnostavniTekst(sporocilo) {
   sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
   sporocilo = addSlike(sporocilo);
   sporocilo = addVideo(sporocilo);
+
   return $('<div style="font-weight: bold"></div>').html(sporocilo);
 }
 
@@ -173,3 +174,9 @@ function addVideo(input) {
   }
   return input+el;
 }
+//dregljaj
+  socket.on('dregljaj', function(vzdevek) {
+      $('#vsebina').jrumble();
+      $('#vsebina').trigger('startRumble');
+      var cas = setTimeout(function(){$('#vsebina').trigger('stopRumble');}, 1500);
+  });
